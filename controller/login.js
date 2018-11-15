@@ -16,7 +16,7 @@ module.exports = {
     async info (ctx) {
         await sleep(1000);
         ctx.body = {
-            username: '相学长',
+            test: '1'
         }
     }
 };
