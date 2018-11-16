@@ -31,5 +31,4 @@ app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
 
-app.listen(3000);
-console.log('server is runing');
+module.exports = app;
