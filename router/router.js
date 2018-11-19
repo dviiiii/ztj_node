@@ -5,7 +5,9 @@ const router = new Router();
 
 const login = require('../controller/login');
 
+router.get('/login/getUserInfo', login.getUserInfo);
+
 router.post('/login', login.login);
-// router.get('/login/info', login.info);
+
 
 module.exports = router;
