@@ -1,7 +1,7 @@
 'use strict';
 
 const mysql = require('mysql');
-const config = require('../config/mysql-config');
+const config = require('../config/mysql-config-temp');
 
 const db = mysql.createPool(config);
 console.log('数据连接成功');
