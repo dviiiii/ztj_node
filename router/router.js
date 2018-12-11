@@ -15,9 +15,9 @@ router.get('/login/testtemp1', login.testtemp1);
 
 
 
-router.post('/db/queryalltables', db.queryAllTables);
-router.post('/db/queryonetablecol', db.queryOneTableCol);
-router.post('/db/queryonetable', db.queryOneTable);
-router.post('/db/tomasking', db.toMasking);
+router.post('/db/queryAllTables', db.queryAllTables);
+router.post('/db/queryOneTableCol', db.queryOneTableCol);
+router.post('/db/queryOneTable', db.queryOneTable);
+router.post('/db/toMasking', db.toMasking);
 
 module.exports = router;
