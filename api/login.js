@@ -5,7 +5,7 @@ const querytemp = require('../db/mysql-temp');
 module.exports = {
     queryPassword(username) {
         return new Promise((resolve, reject) => {
-            query("SELECT `userpw` FROM `user` WHERE username=?", [username], function(err,results){
+            query("SELECT `userpw` FROM `hqdba_user` WHERE username=?", [username], function(err,results){
                 if(err){
                     reject(err);
                 }
@@ -39,7 +39,7 @@ module.exports = {
 
     test_temp1() {
         return new Promise((resolve, reject) => {
-            query("select * from user",[], function(err,results){
+            query("select * from hqdba_user",[], function(err,results){
                 if(err){
                     reject(err);
                 }
