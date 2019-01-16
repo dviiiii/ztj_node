@@ -6,9 +6,10 @@ const router = new Router();
 const login = require('../controller/login');
 const db = require('../controller/db');
 
+router.post('/login', login.login); //用户登录
 router.get('/login/getUserInfo', login.getUserInfo);
 
-router.post('/login', login.login);
+
 
 router.get('/login/testtemp', login.testtemp);
 router.get('/login/testtemp1', login.testtemp1);

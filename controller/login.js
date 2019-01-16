@@ -16,7 +16,7 @@ module.exports = {
                 status: '1',
                 msg: '用户名密码错误！'
             }
-        }else if(dbPassword[0].userpw === userPassword[0].userpw) {
+        }else if(dbPassword[0].user_password === userPassword[0].user_password) {
             const token = jwt.sign({
                 userName
             }, 'xyk_yplrm', { expiresIn: '2h' });
