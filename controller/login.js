@@ -7,30 +7,27 @@ module.exports = {
         const key = 'ztj_';
         let userName = ctx.request.body.userName;
         let password = ctx.request.body.password;
+        const key_password = key + password;
 
-        let dbPassword = await queryPassword(userName);
-        let userPassword = await PASSWORD(key + password);
+        let checkPassword = await queryPassword(userName, key_password);
 
-        if(dbPassword.length === 0) {
-            ctx.status = 201
+        // let userPassword = await PASSWORD(key + password);
+
+        if(checkPassword[0].p === 0) {
+            ctx.status = 401
             ctx.body = {
                 status: '1',
                 msg: '用户名密码错误！'
             }
-        }else if(dbPassword[0].user_password === userPassword[0].user_password) {
+        } else {
             const token = jwt.sign({
                 userName
             }, 'xyk_yplrm', { expiresIn: '2h' });
 
-            ctx.status = 200
+            ctx.status = 201
             ctx.body = {
                 msg: '登录成功！',
                 token
-            }
-        }else {
-            ctx.body = {
-                status: '1',
-                msg: '用户名密码错误！'
             }
         }
     },
