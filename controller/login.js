@@ -12,6 +12,7 @@ module.exports = {
         let userPassword = await PASSWORD(key + password);
 
         if(dbPassword.length === 0) {
+            ctx.status = 201
             ctx.body = {
                 status: '1',
                 msg: '用户名密码错误！'
@@ -21,8 +22,8 @@ module.exports = {
                 userName
             }, 'xyk_yplrm', { expiresIn: '2h' });
 
+            ctx.status = 200
             ctx.body = {
-                status: '0',
                 msg: '登录成功！',
                 token
             }
