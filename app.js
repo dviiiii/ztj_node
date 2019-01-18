@@ -31,4 +31,9 @@ app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
 
+// let test = [];
+// for(let i = 0; i< 100000; i++) {
+//     test.push(i)
+// }
+
 module.exports = app;
