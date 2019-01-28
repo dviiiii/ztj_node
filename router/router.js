@@ -9,8 +9,6 @@ const db = require('../controller/db');
 router.post('/login', login.login); //用户登录
 router.get('/userInfo', login.getUserInfo); //获取用户信息
 
-
-
 router.get('/login/testtemp', login.testtemp);
 router.get('/login/testtemp1', login.testtemp1);
 

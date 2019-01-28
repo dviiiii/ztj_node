@@ -34,6 +34,7 @@ module.exports = {
     async getUserInfo (ctx) {
         let token = ctx.query.token;
         let decoded = jwt.decode(token, token_key);
+        console.log(ctx.request.body)
         if(token) {
             if(decoded.exp <= new Date()/1000){
                 ctx.status = 401;
