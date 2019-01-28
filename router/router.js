@@ -7,7 +7,7 @@ const login = require('../controller/login');
 const db = require('../controller/db');
 
 router.post('/login', login.login); //用户登录
-router.get('/login/getUserInfo', login.getUserInfo);
+router.get('/userInfo', login.getUserInfo); //获取用户信息
 
 
 

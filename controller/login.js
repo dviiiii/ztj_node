@@ -1,28 +1,28 @@
 // controller/user.js
 const {queryPassword, PASSWORD, test_temp, test_temp1} = require('../api/login');
 const jwt = require('jsonwebtoken');
+const token_key = 'xyk_yplrm';
 
 module.exports = {
     async login (ctx) {
         const key = 'ztj_';
-        let userName = ctx.request.body.userName;
-        let password = ctx.request.body.password;
+        const userName = ctx.request.body.userName;
+        const password = ctx.request.body.password;
         const key_password = key + password;
 
-        let checkPassword = await queryPassword(userName, key_password);
+        const checkPassword = await queryPassword(userName, key_password);
+        console.log(checkPassword)
 
         // let userPassword = await PASSWORD(key + password);
-
-        if(checkPassword[0].p === 0) {
+        if(checkPassword.length === 0 || checkPassword[0].p === 0) {
             ctx.status = 401
             ctx.body = {
-                status: '1',
                 msg: '用户名密码错误！'
             }
         } else {
             const token = jwt.sign({
                 userName
-            }, 'xyk_yplrm', { expiresIn: '2h' });
+            }, token_key, { expiresIn: '2h' });
 
             ctx.status = 201
             ctx.body = {
@@ -33,7 +33,7 @@ module.exports = {
     },
     async getUserInfo (ctx) {
         let token = ctx.query.token;
-        let decoded = jwt.decode(token, 'xyk_yplrm');
+        let decoded = jwt.decode(token, token_key);
         if(token) {
             if(decoded.exp <= new Date()/1000){
                 ctx.status = 401;
