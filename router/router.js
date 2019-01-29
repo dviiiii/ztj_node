@@ -11,6 +11,7 @@ const check_api_token = require('../lib/check_api_token');
 router.post('/login', login.login); //用户登录
 router.get('/userInfo',check_api_token.verify, login.getUserInfo); //获取用户信息
 
+router.post('/online/book',check_api_token.verify, book.addBook); //新增图书
 router.get('/online/bookList',check_api_token.verify, book.getBookList); //获取书籍信息
 
 router.get('/login/testtemp', login.testtemp);

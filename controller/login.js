@@ -32,27 +32,20 @@ module.exports = {
         }
     },
     async getUserInfo (ctx) {
-        let token = ctx.query.token;
-        let decoded = jwt.decode(token, token_key);
-        if(token) {
-            if(decoded.exp <= new Date()/1000){
-                ctx.status = 401;
-                ctx.body = {
-                    message: 'token过期'
-                };
-            }else{
-                //如果权限没问题，那么交个下一个控制器处理
-                ctx.body = {
-                    status: '0',
-                    data: {
-                        name: 'super_admin',
-                        user_id: '1',
-                        access: ['super_admin', 'admin'],
-                        avator: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
-                    }
-                }
+
+        //假数据
+        //如果权限没问题，那么交个下一个控制器处理
+        ctx.body = {
+            status: '0',
+            data: {
+                name: 'super_admin',
+                user_id: '1',
+                access: ['super_admin', 'admin'],
+                avator: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
             }
         }
+
+
     },
 
     async testtemp (ctx) {

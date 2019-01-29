@@ -14,4 +14,30 @@ module.exports = {
         });
     },
 
+    addBook(params) {
+        return new Promise((resolve, reject) => {
+            query('insert into ol_book_info(username, bookname, booknumber, readtype) values(?,?,?,?)',
+                [params.userName, params.bookName, params.bookNumber, params.readType], function(err,results){
+                if(err){
+                    reject(err);
+                }
+
+                resolve(results);
+            });
+        });
+    },
+
+    checkBook(params) {
+        return new Promise((resolve, reject) => {
+            query('select id from ol_book_info where username=? and bookname=? and isdelete="0"',
+                [params.userName, params.bookName], function(err,results){
+                    if(err){
+                        reject(err);
+                    }
+
+                    resolve(results);
+                });
+        });
+    },
+
 };
