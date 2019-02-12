@@ -6,6 +6,7 @@ const router = new Router();
 const login = require('../controller/login');
 const book = require('../controller/book');
 const db = require('../controller/db');
+const db_backup = require('../controller/db_backup');
 const check_api_token = require('../lib/check_api_token');
 
 router.post('/login', login.login); //用户登录
@@ -17,6 +18,8 @@ router.post('/online/deleteBook',check_api_token.verify, book.deleteBook); //删
 router.post('/online/checkReview',check_api_token.verify, book.checkReview); //确认已复习
 router.get('/online/bookList',check_api_token.verify, book.getBookList); //获取书籍信息
 router.get('/online/getReviewInfo',check_api_token.verify, book.getReviewInfo); //获取复习信息
+
+router.get('/ftptest', db_backup.ftptest);
 
 router.get('/login/testtemp', login.testtemp);
 router.get('/login/testtemp1', login.testtemp1);
