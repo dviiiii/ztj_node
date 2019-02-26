@@ -53,6 +53,8 @@ module.exports = {
 
         const result = await bookApi.addReadInfo(params);
         const book_reading_info = await bookApi.queryBookReadingInfo(params);
+        console.log(result)
+        console.log(getProgess(maxPage, book_reading_info))
         await bookApi.updateProgess(params, getProgess(maxPage, book_reading_info));
 
         ctx.status = 201;
