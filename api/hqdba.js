@@ -1,5 +1,6 @@
 // controller/user.js
 const query = require('../db/mysql');
+const moment = require('moment');
 
 module.exports = {
     //查询实例配置
@@ -15,11 +16,25 @@ module.exports = {
         });
     },
 
+    //查询备份数据
+    queryBkInfo() {
+        return new Promise((resolve, reject) => {
+            const time = moment().add(-1, 'days').format('YYYY-MM-DD HH:mm:ss');
+            query(`select * from db_bk_log a LEFT JOIN db_config b on a.db_id = b.id WHERE a.create_time > '${time}' ORDER BY b.db_vip, a.file_name`, [], function(err,results){
+                if(err){
+                    reject(err);
+                }
+
+                resolve(results);
+            });
+        });
+    },
+
     //新增实例
     addConfig(params) {
         return new Promise((resolve, reject) => {
-            query('INSERT INTO db_config(db_describe, db_name, db_type, db_host, db_user, db_password, db_port, db_sid, db_bk_addr) VALUES(?,?,?,?,?,?,?,?,?)',
-                [params.db_describe, params.db_name, params.db_type, params.db_host, params.db_user, params.db_password, params.db_port, params.db_sid, params.db_bk_addr], function(err,results){
+            query('INSERT INTO db_config(db_describe, db_name, db_type, db_host, db_vip, db_user, db_password, db_port, db_sid, db_bk_addr) VALUES(?,?,?,?,?,?,?,?,?)',
+                [params.db_describe, params.db_name, params.db_type, params.db_host, params.db_vip, params.db_user, params.db_password, params.db_port, params.db_sid, params.db_bk_addr], function(err,results){
                 if(err){
                     reject(err);
                 }

@@ -21,6 +21,17 @@ module.exports = {
         };
     },
 
+    async queryBkInfo(ctx) {
+        const user_info = ctx.req.api_user;
+
+        //如果权限没问题，那么交个下一个控制器处理
+        const data = await hqdbaApi.queryBkInfo();
+        ctx.status = 200;
+        ctx.body = {
+            data: data,
+        };
+    },
+
     async addConfig(ctx) {
         const user_info = ctx.req.api_user;
         const params = ctx.request.body;
@@ -45,9 +56,7 @@ module.exports = {
         };
     },
 
-    async queryBkInfo(ctx) {
-        const user_info = ctx.req.api_user;
-
+    async addBkInfo() {
         //如果权限没问题，那么交个下一个控制器处理
         const dbConfig = await hqdbaApi.queryConfig();
         let bk_info = [];
@@ -55,10 +64,6 @@ module.exports = {
             if(dbConfig[i].db_bk_addr) bk_info.push(dbConfig[i])
         }
 
-        const data = await node_ftp.getAll(bk_info);
-        ctx.status = 200;
-        ctx.body = {
-            data: data,
-        };
+        node_ftp.getAll(bk_info);
     },
 };

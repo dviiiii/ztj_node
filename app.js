@@ -7,6 +7,7 @@ const onerror = require('koa-onerror');
 const koaStatic = require('koa-static');
 const logger = require('koa-logger');
 const jwt = require('jsonwebtoken');
+const schedule = require('./controller/schedule');
 
 //错误处理
 onerror(app);
@@ -15,6 +16,7 @@ app.use(bodyParser());
 app.use(logger());
 app.use(json());
 app.use(koaStatic(__dirname + '/public'));
+
 
 // logger日志
 app.use(async (ctx, next) => {
@@ -31,6 +33,9 @@ app
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
+
+//启动定时任务
+schedule();
 
 // // 错误处理
 // app.use((ctx, next) => {
