@@ -45,8 +45,6 @@ module.exports = {
 
     //新增备份信息
     addBkLogs(params) {
-        console.log('-----------------')
-        console.log(params)
         return new Promise((resolve, reject) => {
             let sqlStr = '';
             for(let i in params) {
@@ -54,7 +52,6 @@ module.exports = {
             }
 
             sqlStr = sqlStr.slice(0,-1);
-            console.log('INSERT INTO db_bk_log(db_id, file_name, file_size, create_time) VALUES'+sqlStr)
             query('INSERT INTO db_bk_log(db_id, file_name, file_size, create_time) VALUES'+sqlStr,
                 [params.db_id, params.file_name, params.file_size, params.create_time], function(err,results){
                     if(err){
