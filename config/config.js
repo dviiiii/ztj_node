@@ -5,8 +5,8 @@
 
 module.exports = {
     ftp_config: {
-        host: "172.69.1.188",
-        user: "bfadmin",
-        password: "Hq~Mart~Bf"
+        host: "192.168.132.201",
+        // user: "dw",
+        // password: "123456"
     }
 };

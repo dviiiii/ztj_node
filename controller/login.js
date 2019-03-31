@@ -11,7 +11,6 @@ module.exports = {
         const key_password = key + password;
 
         const checkPassword = await queryPassword(userName, key_password);
-        console.log(checkPassword)
 
         // let userPassword = await PASSWORD(key + password);
         if(checkPassword.length === 0 || checkPassword[0].p === 0) {
