@@ -15,7 +15,6 @@ module.exports = {
 
         //如果权限没问题，那么交个下一个控制器处理
         const dbConfig = await hqdbaApi.queryConfig();
-        console.log(dbConfig)
         ctx.status = 200;
         ctx.body = {
             data: dbConfig,
@@ -25,11 +24,9 @@ module.exports = {
     async addConfig(ctx) {
         const user_info = ctx.req.api_user;
         const params = ctx.request.body;
-        console.log(params)
 
         //如果权限没问题，那么交个下一个控制器处理
         const status = await hqdbaApi.addConfig(params);
-        console.log(status)
         ctx.status = 200;
         ctx.body = {
             msg: status,
@@ -39,11 +36,9 @@ module.exports = {
     async removeConfig(ctx) {
         const user_info = ctx.req.api_user;
         const params = ctx.request.body;
-        console.log(params)
 
         //如果权限没问题，那么交个下一个控制器处理
         const status = await hqdbaApi.removeConfig(params);
-        console.log(status)
         ctx.status = 200;
         ctx.body = {
             msg: status,
@@ -61,7 +56,6 @@ module.exports = {
         }
 
         const data = await node_ftp.getAll(bk_info);
-        console.log(data)
         ctx.status = 200;
         ctx.body = {
             data: data,
