@@ -33,7 +33,7 @@ module.exports = {
     //新增实例
     addConfig(params) {
         return new Promise((resolve, reject) => {
-            query('INSERT INTO db_config(db_describe, db_name, db_type, db_host, db_vip, db_user, db_password, db_port, db_sid, db_bk_addr) VALUES(?,?,?,?,?,?,?,?,?)',
+            query('INSERT INTO db_config(db_describe, db_name, db_type, db_host, db_vip, db_user, db_password, db_port, db_sid, db_bk_addr) VALUES(?,?,?,?,?,?,?,?,?,?)',
                 [params.db_describe, params.db_name, params.db_type, params.db_host, params.db_vip, params.db_user, params.db_password, params.db_port, params.db_sid, params.db_bk_addr], function(err,results){
                 if(err){
                     reject(err);
