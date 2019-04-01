@@ -24,8 +24,7 @@ router.get('/online/getReviewInfo',check_api_token.verify, book.getReviewInfo); 
 router.get('/hqdba/queryConfig', hqdba.queryConfig);    //查询数据库相关信息
 router.post('/hqdba/addConfig', hqdba.addConfig);    //查询数据库相关信息
 router.post('/hqdba/removeConfig', hqdba.removeConfig);    //查询数据库相关信息
-router.get('/hqdba/queryBkInfo', hqdba.queryBkInfo);    //查询备份相关信息
-router.get('/ftptest', hqdba.ftptest);
+router.post('/hqdba/queryBkInfo', hqdba.queryBkInfo);    //查询备份相关信息
 
 router.get('/login/testtemp', login.testtemp);
 router.get('/login/testtemp1', login.testtemp1);

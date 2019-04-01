@@ -17,10 +17,28 @@ module.exports = {
     },
 
     //查询备份数据
-    queryBkInfo() {
+    queryBkInfo(params) {
+        const pageSize = params.pageSize;
+        const pageNum = params.pageNum;
+        const date = moment(params.date).format('YYYY-MM-DD HH:mm:ss');
+        const y_date = moment(params.date).add(-1, "days").format('YYYY-MM-DD HH:mm:ss');
         return new Promise((resolve, reject) => {
-            const time = moment().add(-1, 'days').format('YYYY-MM-DD HH:mm:ss');
-            query(`select * from db_bk_log a LEFT JOIN db_config b on a.db_id = b.id WHERE a.create_time > '${time}' ORDER BY b.db_vip, a.file_name`, [], function(err,results){
+            query(`select * from db_bk_log a LEFT JOIN db_config b on a.db_id = b.id WHERE a.create_time < '${date}' and a.create_time > '${y_date}' ORDER BY b.db_vip, a.file_name limit ${pageSize*(pageNum-1)}, ${pageSize}`, [], function(err,results){
+                if(err){
+                    reject(err);
+                }
+
+                resolve(results);
+            });
+        });
+    },
+
+    //查询备份数据
+    queryBkInfoCount(params) {
+        const date = moment(params.date).format('YYYY-MM-DD HH:mm:ss');
+        const y_date = moment(params.date).add(-1, "days").format('YYYY-MM-DD HH:mm:ss');
+        return new Promise((resolve, reject) => {
+            query(`select count(*) as total from db_bk_log a LEFT JOIN db_config b on a.db_id = b.id WHERE a.create_time < '${date}' and a.create_time > '${y_date}' ORDER BY b.db_vip, a.file_name`, [], function(err,results){
                 if(err){
                     reject(err);
                 }

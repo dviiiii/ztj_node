@@ -23,12 +23,15 @@ module.exports = {
 
     async queryBkInfo(ctx) {
         const user_info = ctx.req.api_user;
+        const params = ctx.request.body;
 
         //如果权限没问题，那么交个下一个控制器处理
-        const data = await hqdbaApi.queryBkInfo();
+        const data = await hqdbaApi.queryBkInfo(params);
+        const total =  await hqdbaApi.queryBkInfoCount(params);
         ctx.status = 200;
         ctx.body = {
             data: data,
+            total: total[0].total
         };
     },
 
