@@ -63,7 +63,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             let sqlStr = '';
             for(let i in params) {
-                sqlStr += `('${params[i].db_id}','${params[i].file_name}','${params[i].file_size}','${params[i].create_time}'),`
+                sqlStr += `('${params[i].db_id}','${params[i].file_name}','${params[i].file_size/1024}','${params[i].create_time}'),`
             }
 
             sqlStr = sqlStr.slice(0,-1);
