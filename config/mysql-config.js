@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-    host     : '39.105.109.101',
+    host     : '47.111.120.34',
     user     : 'root',
-    password : '123456',
+    password : 'Zudwa_2019',
     database : 'ztj_db'
 };
