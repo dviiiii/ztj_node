@@ -1,5 +1,7 @@
 // controller/user.js
 const bookApi = require('../api/book_api');
+const rank_config = require('../config/rank_config');
+const ol_api = require('../api/ol_api');
 const jwt = require('jsonwebtoken');
 const token_key = 'xyk_yplrm';
 const moment = require('moment');
@@ -50,12 +52,21 @@ module.exports = {
         params.today = moment().format('YYYY-MM-DD');
         console.log(params)
         const maxPage = params.pagenumber;
+        const reading_rank = params.reading_rank;
 
-        const result = await bookApi.addReadInfo(params);
+
+
+
+        await bookApi.addReadInfo(params);
         const book_reading_info = await bookApi.queryBookReadingInfo(params);
-        console.log(result)
-        console.log(getProgess(maxPage, book_reading_info))
         await bookApi.updateProgess(params, getProgess(maxPage, book_reading_info));
+
+        const opt = {
+            rankVal: reading_rank,
+            user_name: user_info.userName
+        };
+        //更新积分
+        await ol_api.updateRank(opt);
 
         ctx.status = 201;
         ctx.body = {
@@ -87,7 +98,6 @@ module.exports = {
         params.userName = user_info.userName;
 
         const reviewDay = getFullData();
-        console.log(reviewDay)
         const data = await bookApi.getReviewInfo(params, reviewDay);
 
         ctx.status = 200;
@@ -103,6 +113,7 @@ module.exports = {
         const params = ctx.request.body;
         params.userName = user_info.userName;
         const num = params.num;
+
         //实际间隔天数
         let b_day;
         switch (num) {
@@ -118,6 +129,13 @@ module.exports = {
         const fixDay = moment(params.date).add(formatNow-b_day, 'd').format('YYYY-MM-DD');
 
         const data = await bookApi.checkReview(params,fixDay);
+
+        //积分加10
+        const opt = {
+            rankVal: rank_config.rank_val.book_checkReview,
+            user_name: user_info.userName
+        };
+        await ol_api.updateRank(opt);
 
         ctx.status = 200;
         ctx.body = {
