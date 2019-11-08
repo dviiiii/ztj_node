@@ -7,7 +7,7 @@ const onerror = require('koa-onerror');
 const koaStatic = require('koa-static');
 const logger = require('koa-logger');
 const jwt = require('jsonwebtoken');
-const schedule = require('./controller/schedule');
+const schedule = require('./controller/schedule_controller');
 
 //错误处理
 onerror(app);

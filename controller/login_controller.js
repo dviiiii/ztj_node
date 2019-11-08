@@ -1,5 +1,5 @@
 // controller/user.js
-const {queryPassword, PASSWORD, test_temp, test_temp1} = require('../api/login');
+const {queryPassword, PASSWORD} = require('../api/login_api');
 const jwt = require('jsonwebtoken');
 const token_key = 'xyk_yplrm';
 
@@ -45,23 +45,5 @@ module.exports = {
         }
 
 
-    },
-
-    async testtemp (ctx) {
-        let test = await test_temp();
-        console.log(test);
-        ctx.body = {
-            status: '0',
-            data: test
-        }
-    },
-
-    async testtemp1 (ctx) {
-        let test = await test_temp1();
-        console.log(test);
-        ctx.body = {
-            status: '1',
-            data: test
-        }
     },
 };
