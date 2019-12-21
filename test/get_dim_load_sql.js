@@ -4,35 +4,245 @@ function repeat(str , n){
 }
 
 let jsonData = [
+/*
+  // 1.公司维度
   {
     to_table: {
-      table_name: 'hana_dw.MATERIEL_DIM_TMP',
-      key: ['HANA_MATERIEL_CODE'],
-      filed: ['HANA_MATERIEL_NAME'],
-      sk: 'MATERIEL_SK'
+      table_name: 'hana_dws.COMPANY_DIM_DWS',
+      key: ['HANA_GROUP_CODE','HANA_COMPANY_CODE'],
+      filed: ['HANA_COMPANY_NAME'],
+      sk: 'COMPANY_SK'
     },
     from_table: {
-      table_name: 'hana_ods.MATERIEL_DIM_TMP',
-      key: ['HANA_MATERIEL_CODE'],
-      filed: ['HANA_MATERIEL_NAME'],
+      table_name: 'hana_ods.COMPANY_DIM_ODS',
+      key: ['HANA_GROUP_CODE','HANA_COMPANY_CODE'],
+      filed: ['HANA_COMPANY_NAME'],
       //来源表简写为a
-      init_where_sql: 'and a.inhivetime like \'%2019-11-22%\''
+      init_where_sql: ''
     }
-  },{
+  },
+  // 2.客户维度
+  {
     to_table: {
-      table_name: 'hana_dw.MATERIEL_DIM_TMP',
+      table_name: 'hana_dws.CUSTOMER_DIM_DWS',
+      key: ['HANA_CUSTOMER_CODE'],
+      filed: ['HANA_CUSTOMER_NAME'],
+      sk: 'CUSTOMER_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.CUSTOMER_DIM_ODS',
+      key: ['HANA_CUSTOMER_CODE'],
+      filed: ['HANA_CUSTOMER_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+  // 3.币种维度
+  {
+    to_table: {
+      table_name: 'hana_dws.CURRENCY_DIM_DWS',
+      key: ['HANA_CURRENCY_CODE'],
+      filed: ['HANA_CURRENCY_SHORTNAME', 'HANA_CURRENCY_NAME'],
+      sk: 'CURRENCY_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.CURRENCY_DIM_ODS',
+      key: ['HANA_CURRENCY_CODE'],
+      filed: ['HANA_CURRENCY_SHORTNAME', 'HANA_CURRENCY_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+  // 4.产品线维度
+  {
+    to_table: {
+      table_name: 'hana_dws.PRODUCTLINE_DIM_DWS',
+      key: ['HANA_PRODUCTLINE_CODE'],
+      filed: ['HANA_PRODUCTLINE_NAME'],
+      sk: 'PRODUCTLINE_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.PRODUCTLINE_DIM_ODS',
+      key: ['HANA_PRODUCTLINE_CODE'],
+      filed: ['HANA_PRODUCTLINE_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+  // 5.子产品线维度
+  {
+    to_table: {
+      table_name: 'hana_dws.PRODUCTLINE_CHILD_DIM_DWS',
+      key: ['HANA_PRODUCTLINE_CHILD_CODE'],
+      filed: ['HANA_PRODUCTLINE_CHILD_NAME'],
+      sk: 'PRODUCTLINE_CHILD_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.PRODUCTLINE_CHILD_DIM_ODS',
+      key: ['HANA_PRODUCTLINE_CHILD_CODE'],
+      filed: ['HANA_PRODUCTLINE_CHILD_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+  // 6.供应商维度
+  {
+    to_table: {
+      table_name: 'hana_dws.SUPPLIER_DIM_DWS',
+      key: ['HANA_SUPPLIER_CODE'],
+      filed: ['HANA_SUPPLIER_NAME'],
+      sk: 'SUPPLIER_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.SUPPLIER_DIM_ODS',
+      key: ['HANA_SUPPLIER_CODE'],
+      filed: ['HANA_SUPPLIER_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+
+  // 7.销售组办公室维度表
+  {
+    to_table: {
+      table_name: 'hana_dws.SALESOFFICE_DIM_DWS',
+      key: ['HANA_SALESOFFICE_CODE'],
+      filed: ['HANA_SALESOFFICE_NAME'],
+      sk: 'SALESOFFICE_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.SALESOFFICE_DIM_ODS',
+      key: ['HANA_SALESOFFICE_CODE'],
+      filed: ['HANA_SALESOFFICE_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+
+  // 8.销售组维度表
+  {
+    to_table: {
+      table_name: 'hana_dws.SALESGROUP_DIM_DWS',
+      key: ['HANA_SALESGROUP_CODE'],
+      filed: ['HANA_SALESGROUP_NAME'],
+      sk: 'SALESGROUP_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.SALESGROUP_DIM_ODS',
+      key: ['HANA_SALESGROUP_CODE'],
+      filed: ['HANA_SALESGROUP_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+
+  // 9.销售小组维度表
+  {
+    to_table: {
+      table_name: 'hana_dws.SALESTEAM_DIM_DWS',
+      key: ['HANA_SALESTEAM_CODE'],
+      filed: ['HANA_SALESTEAM_NAME'],
+      sk: 'SALESTEAM_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.SALESTEAM_DIM_ODS',
+      key: ['HANA_SALESTEAM_CODE'],
+      filed: ['HANA_SALESTEAM_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+
+  // 10.物料维度表
+  {
+    to_table: {
+      table_name: 'hana_dws.MATERIEL_DIM_DWS',
       key: ['HANA_MATERIEL_CODE'],
       filed: ['HANA_MATERIEL_NAME'],
       sk: 'MATERIEL_SK'
     },
     from_table: {
-      table_name: 'hana_ods.MATERIEL_DIM_TMP',
+      table_name: 'hana_ods.MATERIEL_DIM_ODS',
       key: ['HANA_MATERIEL_CODE'],
       filed: ['HANA_MATERIEL_NAME'],
       //来源表简写为a
-      init_where_sql: 'and a.inhivetime like \'%2019-11-22%\''
+      init_where_sql: ''
     }
-  }]
+  },
+
+  // 11.汇率维度表
+  {
+    to_table: {
+      table_name: 'hana_dws.RATE_DIM_DWS',
+      key: ['HANA_RATE_TYPE','HANA_RATE_FROM', 'HANA_RATE_TO', 'HANA_RATE_DATE'],
+      filed: ['HANA_RATE'],
+      sk: 'RATE_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.RATE_DIM_ODS',
+      key: ['HANA_RATE_TYPE','HANA_RATE_FROM', 'HANA_RATE_TO', 'HANA_RATE_DATE'],
+      filed: ['HANA_RATE'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+
+  // 12.业务员维度表
+  {
+    to_table: {
+      table_name: 'hana_dws.SALESMAN_DIM_DWS',
+      key: ['HANA_SALESMAN_CODE'],
+      filed: ['HANA_SALESMAN_NAME'],
+      sk: 'SALESMAN_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.SALESMAN_DIM_ODS',
+      key: ['HANA_SALESMAN_CODE'],
+      filed: ['HANA_SALESMAN_NAME'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+  */
+    // 13.品牌维度表
+  {
+    to_table: {
+      table_name: 'hana_dws.BRAND_DIM_DWS',
+      key: ['HANA_BRAND_CODE'],
+      filed: ['HANA_BRAND_NAME', 'HANA_BRAND_NAME_ZH', 'HANA_BRAND_NAME_CN'],
+      sk: 'BRAND_SK'
+    },
+    from_table: {
+      table_name: 'hana_ods.BRAND_DIM_ODS',
+      key: ['HANA_BRAND_CODE'],
+      filed: ['HANA_BRAND_NAME', 'HANA_BRAND_NAME_ZH', 'HANA_BRAND_NAME_CN'],
+      //来源表简写为a
+      init_where_sql: ''
+    }
+  },
+
+
+
+
+
+
+
+  // {
+  //   to_table: {
+  //     table_name: 'hana_dw.MATERIEL_DIM_TMP',
+  //     key: ['HANA_MATERIEL_CODE'],
+  //     filed: ['HANA_MATERIEL_NAME'],
+  //     sk: 'MATERIEL_SK'
+  //   },
+  //   from_table: {
+  //     table_name: 'hana_ods.MATERIEL_DIM_TMP',
+  //     key: ['HANA_MATERIEL_CODE'],
+  //     filed: ['HANA_MATERIEL_NAME'],
+  //     //来源表简写为a
+  //     // init_where_sql: 'and a.inhivetime like \'%2019-11-22%\''
+  //   }
+  // }
+  ]
 ;
 
 function init_load() {

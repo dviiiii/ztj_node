@@ -404,29 +404,63 @@ let jsonData = {
   //   'hq_createtime': '创建日期',
   // },
 // hana 销售业绩汇总表
- hana1: {
-   'LIPS_MANDT': '',
-   'LIPS_VBELN': '',
-   'LIKP_WADAT_IST': '年度',
-   'LIKP_VKORG': '公司代码',
-   'LIKP_KUNAG': '客户编码',
-   'T001_BUTXT': '公司代码描述',
-   'BUT000_NAME_ORG1': '客户编码描述',
-   'VBAK_ZXSBGS': '销售办公室',
-   'VBAK_ZXSZ': '销售组',
-   'VBAK_ZXSXZ': '销售小组',
-   'ZSDT001_ZXSBGS_TXT': '销售办公室描述',
-   'ZSDT002_ZXSZ_TXT': '销售组描述',
-   'ZSDT003_ZXSXZ_TXT': '销售小组描述',
-   'VBPA_LIFNR': '业务员',
-   'BUT000_NAME_LAST': '业务员描述',
-   'MARA_MATKL': '物料组',
-   'MAKT_MAKTX': '物料描述',
-   'MARC_ZZCPX': '产品线',
-   'ZMMT002_ZZCPX_TXT': '产品线描述',
-   'CURRENCY': '币种',
-   'SHIPPING_AMOUNT': '出货总金额',
-   'VBAP_KWMENG': '出货总金额KWMNG',
+  HANA_SALES_ORDER_FACT_SUM_DW: {
+    'DATE_SK': '数据日期代理键',
+    'COMPANY_SK': '公司维度代理键',
+    'PRODUCTLINE_SK': '产品线维度代理键',
+    'BRAND_SK': '品牌维度代理键',
+    'SUPPLIER_SK': '供应商维度代理键',
+    'CUSTOMER_SK': '客户维度代理键',
+    'CURRENCY_SK': '币种维度代理键',
+    'HANA_AMOUNT_TYPE': '金额类型',
+    'HANA_AMOUNT_CYCLE': '金额周期（期初、期末、本期）',
+    'HANA_AMOUNT': '金额',
+    'HANA_RECEIVED_ORDER_AMOUNT':  '已接订单金额',
+    'HANA_CUMULATIVE_SHIPMENT_AMOUNT':  '累积出货金额',
+    'HANA_CONFIRMED_SALES_AMOUNT':  '已确认销售金额',
+    'HANA_BALANCE_RECEIVABLES_AMOUNT':  '应收款余额',
+    'HANA_SHIPMENT_NOTINVOICED_AMOUNT':  '出货未开票金额',
+    'HANA_THISMONTH_RECEIVABLE_AMOUNT':  '本月应回款金额',
+    'HANA_THISMONTH_COLLECTED_AMOUNT':  '本月已回款金额',
+
+    'HANA_RECEIVED_ORDER_AMOUNT_MARK':  '已接订单金额标志列',
+    'HANA_CUMULATIVE_SHIPMENT_AMOUNT_MARK':  '累积出货金额标志列',
+    'HANA_CONFIRMED_SALES_AMOUNT_MARK':  '已确认销售金额标志列',
+    'HANA_BALANCE_RECEIVABLES_AMOUNT_MARK':  '应收款余额标志列',
+    'HANA_SHIPMENT_NOTINVOICED_AMOUNT_MARK':  '出货未开票金额标志列',
+    'HANA_THISMONTH_RECEIVABLE_AMOUNT_MARK':  '本月应回款金额标志列',
+    'HANA_THISMONTH_COLLECTED_AMOUNT_MARK':  '本月已回款金额标志列',
+
+    'HANA_BEGIN_TERM_MARK':  '期初标志列',
+    'HANA_THIS_TERM_MARK':  '本期标志列',
+    'HANA_END_TERM_MARK':  '期末标志列',
+
+    'BEGIN_TERM_RECEIVED_ORDER_AMOUNT':  '（期初）已接订单金额',
+    'BEGIN_TERM_CUMULATIVE_SHIPMENT_AMOUNT':  '（期初）累积出货金额',
+    'BEGIN_TERM_CONFIRMED_SALES_AMOUNT':  '（期初）已确认销售金额',
+    'BEGIN_TERM_BALANCE_RECEIVABLES_AMOUNT':  '（期初）应收款余额',
+    'BEGIN_TERM_SHIPMENT_NOTINVOICED_AMOUNT':  '（期初）出货未开票金额',
+    'BEGIN_TERM_THISMONTH_RECEIVABLE_AMOUNT':  '（期初）本月应回款金额',
+    'BEGIN_TERM_THISMONTH_COLLECTED_AMOUNT':  '（期初）本月已回款金额',
+
+    'THIS_TERM_RECEIVED_ORDER_AMOUNT':  '（本期）已接订单金额',
+    'THIS_TERM_CUMULATIVE_SHIPMENT_AMOUNT':  '（本期）累积出货金额',
+    'THIS_TERM_CONFIRMED_SALES_AMOUNT':  '（本期）已确认销售金额',
+    'THIS_TERM_BALANCE_RECEIVABLES_AMOUNT':  '（本期）应收款余额',
+    'THIS_TERM_SHIPMENT_NOTINVOICED_AMOUNT':  '（本期）出货未开票金额',
+    'THIS_TERM_THISMONTH_RECEIVABLE_AMOUNT':  '（本期）本月应回款金额',
+    'THIS_TERM_THISMONTH_COLLECTED_AMOUNT':  '（本期）本月已回款金额',
+
+    'END_TERM_RECEIVED_ORDER_AMOUNT':  '（期末）已接订单金额',
+    'END_TERM_CUMULATIVE_SHIPMENT_AMOUNT':  '（期末）累积出货金额',
+    'END_TERM_CONFIRMED_SALES_AMOUNT':  '（期末）已确认销售金额',
+    'END_TERM_BALANCE_RECEIVABLES_AMOUNT':  '（期末）应收款余额',
+    'END_TERM_SHIPMENT_NOTINVOICED_AMOUNT':  '（期末）出货未开票金额',
+    'END_TERM_THISMONTH_RECEIVABLE_AMOUNT':  '（期末）本月应回款金额',
+    'END_TERM_THISMONTH_COLLECTED_AMOUNT':  '（期末）本月已回款金额',
+
+    'HANA_ORDER_CHECK_DATE': '订单审核日期',
+    'INHIVETIME': '入库时间'
   }
 };
 
@@ -434,7 +468,7 @@ function e2cn() {
   Object.keys(jsonData).forEach((i) => {
     let obj = jsonData[i];
     Object.keys(obj).forEach((j) => {
-      let resultStr = `update t_fields set fdesc = '${obj[j]}' where fname = '${j}';`;
+      let resultStr = `update t_fields set fdesc = '${obj[j]}' where fname = '${j}' and fmodelname = 'hana_sales_order_sum_model';`;
       fs.writeFile('./message.txt', resultStr + '\n',{ 'flag': 'a' },function(err){
         if(err) console.log('写文件操作失败');
         // else console.log('写文件操作成功');
